@@ -137,9 +137,14 @@ animation:twinkle 3s infinite;
 <div class="decor l5">🌸</div>
 <div class="decor l6">🌸</div>
 
-<h1>Surpresa para o meu amor</h1>
+<h1>Surpresa pra você, [nome dela] ❤️</h1>
 
 <div class="countdown" id="timer"></div>
+
+<p id="mensagem" style="margin-top:15px; font-size:16px; opacity:0.9;">
+Cada segundo que passa é mais um momento perto de te ver sorrir ❤️<br>
+e isso é uma das coisas mais valiosas para mim
+</p>
 
 <div class="reveal" id="reveal">
 <h2>Camiseta do Fluminense<br>Fulgor Braziline Feminina</h2>
@@ -150,22 +155,27 @@ animation:twinkle 3s infinite;
 
 <script>
 
-/* DATA FIXA */
-
-const destino = new Date("April 10, 2026 00:01:00").getTime();
+/* DATA BR SEGURA */
+const destino = new Date(2026, 3, 6, 7, 30, 0).getTime();
 
 function atualizarContagem(){
 
 const agora = new Date().getTime();
 const diferenca = destino - agora;
 
+const dias = Math.floor(diferenca / (1000*60*60*24));
+
 if(diferenca <= 0){
+document.getElementById("timer").innerHTML = "É hoje!!! ❤️";
+
+setTimeout(()=>{
 document.getElementById("timer").style.display="none";
 document.getElementById("reveal").style.display="block";
+}, 2000);
+
 return;
 }
 
-const dias = Math.floor(diferenca / (1000*60*60*24));
 const horas = Math.floor((diferenca % (1000*60*60*24)) / (1000*60*60));
 const minutos = Math.floor((diferenca % (1000*60*60)) / (1000*60));
 const segundos = Math.floor((diferenca % (1000*60)) / 1000);
@@ -178,10 +188,9 @@ document.getElementById("timer").innerHTML =
 setInterval(atualizarContagem,1000);
 atualizarContagem();
 
-/* lirios + corações caindo */
+/* lirios + corações */
 
 function criarItem(){
-
 const item = document.createElement("div");
 item.classList.add("falling");
 
@@ -195,7 +204,6 @@ item.style.fontSize = (Math.random()*18+18)+"px";
 document.body.appendChild(item);
 
 setTimeout(()=>{ item.remove(); },11000);
-
 }
 
 setInterval(criarItem,500);
@@ -203,7 +211,6 @@ setInterval(criarItem,500);
 /* partículas */
 
 function criarSparkle(){
-
 const s = document.createElement("div");
 s.classList.add("sparkle");
 
@@ -213,7 +220,6 @@ s.style.top = Math.random()*100+"vh";
 document.body.appendChild(s);
 
 setTimeout(()=>{ s.remove(); },3000);
-
 }
 
 setInterval(criarSparkle,300);
