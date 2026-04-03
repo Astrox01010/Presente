@@ -123,6 +123,18 @@ animation:twinkle 3s infinite;
 100%{opacity:0.2; transform:scale(0.5);}
 }
 
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:white;
+color:#ff3d9a;
+font-weight:bold;
+cursor:pointer;
+display:none;
+}
+
 </style>
 </head>
 
@@ -142,9 +154,11 @@ animation:twinkle 3s infinite;
 <div class="countdown" id="timer"></div>
 
 <p id="mensagem" style="margin-top:15px; font-size:16px; opacity:0.9;">
-Cada segundo que passa é mais um momento perto de te ver sorrir,
-e isso é uma das coisas mais valiosas para mim ❤️<br>
+Cada segundo que passa é mais um momento perto de te ver sorrir ❤️<br>
+e isso é uma das coisas mais valiosas para mim
 </p>
+
+<button id="abrirBtn">Abrir surpresa 🎁</button>
 
 <div class="reveal" id="reveal">
 <h2>Camiseta do Fluminense<br>Fulgor Braziline Feminina</h2>
@@ -155,7 +169,7 @@ e isso é uma das coisas mais valiosas para mim ❤️<br>
 
 <script>
 
-/* DATA BR SEGURA */
+/* DATA */
 const destino = new Date(2026, 3, 6, 7, 30, 0).getTime();
 
 function atualizarContagem(){
@@ -163,19 +177,17 @@ function atualizarContagem(){
 const agora = new Date().getTime();
 const diferenca = destino - agora;
 
-const dias = Math.floor(diferenca / (1000*60*60*24));
-
 if(diferenca <= 0){
 document.getElementById("timer").innerHTML = "É hoje!!! ❤️";
 
 setTimeout(()=>{
-document.getElementById("timer").style.display="none";
-document.getElementById("reveal").style.display="block";
-}, 2000);
+document.getElementById("abrirBtn").style.display="inline-block";
+}, 1500);
 
 return;
 }
 
+const dias = Math.floor(diferenca / (1000*60*60*24));
 const horas = Math.floor((diferenca % (1000*60*60*24)) / (1000*60*60));
 const minutos = Math.floor((diferenca % (1000*60*60)) / (1000*60));
 const segundos = Math.floor((diferenca % (1000*60)) / 1000);
@@ -188,7 +200,15 @@ document.getElementById("timer").innerHTML =
 setInterval(atualizarContagem,1000);
 atualizarContagem();
 
-/* lirios + corações */
+/* BOTÃO */
+document.getElementById("abrirBtn").onclick = () => {
+document.getElementById("timer").style.display="none";
+document.getElementById("mensagem").style.display="none";
+document.getElementById("abrirBtn").style.display="none";
+document.getElementById("reveal").style.display="block";
+};
+
+/* animações */
 
 function criarItem(){
 const item = document.createElement("div");
@@ -207,8 +227,6 @@ setTimeout(()=>{ item.remove(); },11000);
 }
 
 setInterval(criarItem,500);
-
-/* partículas */
 
 function criarSparkle(){
 const s = document.createElement("div");
